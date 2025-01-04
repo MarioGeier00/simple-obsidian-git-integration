@@ -1,47 +1,12 @@
-# Obsidian Git Integration Plugin
+# Simple Obsidian Git Plugin
 
-This is a Git Integration plugin for Obsidian (https://obsidian.md) to allow users to easily backup their obsidian vault on a remote repository.
+This is a plugin for [Obsidian](https://obsidian.md) for a seamingless synchronization of the obsidian vault using [Git Version Control](https://git-scm.com/).
 
-This plugin works on Windows 10+ and requires Git to be installed in the local system.
+It requires Git to be installed in the local system and only works on desktop.
 
-- [Open the git menu](#open-the-git-menu)
-- [Setup remote repository](#setup-remote-repository)
-- [Create a commit](#create-a-commit)
-- [Sync with remote repository](#sync-with-remote-repository)
+## Features
 
-### Open the git menu
-
-Click "Open git menu" ribbon icon.
-
-![Git menu ribbon](docs/images/image.png)
-
-The menu will pop up, which shows options to init, commit or sync.
-
-![Git menu modal](docs/images/image-1.png)
-
-### Setup remote repository
-
-Create an empty repository on GitHub.
-
-Open to the git menu and select "Git init" or open the command palette (`Ctrl+P` on Windows) and search "Open init repository modal".
-
-![Git init modal](docs/images/image-2.png)
-
-Paste the remote repository url and click "Initialize" to finish setting up.
-
-### Create a commit
-
-Open to the git menu and select "Git commit" or open the command palette (`Ctrl+P` on Windows) and search "Open commit changes modal".
-
-![Git commit modal](docs/images/image-3.png)
-
-Enter a commit message and click "Commit". This is equivalent to performing `git add .` followed by `git commit -m "<message>"`.
-You may also check "Automatically push to remote repository" to push immediately after commit.
-
-### Sync with remote repository
-
-Open to the git menu and select "Git sync" or open the command palette (`Ctrl+P` on Windows) and search "Sync with remote repository".
-
-![Git sync modal](docs/images/image-4.png)
-
-Click "Sync" to push new changes to remote.
+- Integrate with Obsidian UI in the top left corner with a download (pull) and upload (push) button.
+- Uses the `git` command line tool to pull and push changes, so no setup is required.
+- Warns when closing obsidian if there are unsynchronised changes.
+- Automatically notify about changes from the remote repository when the vault is opened.

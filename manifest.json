@@ -1,10 +1,10 @@
 {
-  "id": "git-integration",
-  "name": "Git Integration",
-  "version": "0.4.0",
+  "id": "simple-git-integration",
+  "name": "Simple Git Integration",
+  "version": "0.1.0",
   "minAppVersion": "1.5.3",
   "description": "Easily backup vault on a remote repository.",
-  "author": "noradroid",
-  "authorUrl": "https://github.com/noradroid",
+  "author": "mgprogramms",
+  "authorUrl": "https://github.com/mariogeier00",
   "isDesktopOnly": true
 }
