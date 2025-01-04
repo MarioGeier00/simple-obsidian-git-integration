@@ -61,19 +61,23 @@ export default class SimpleGitPlugin extends Plugin {
 
 
     const updateGitStatus = () => {
-      return this.git.status().then((res) => {
-        if (res) {
-          this.onUnpublishedChangesChange(!res.isClean() || res.ahead > 0);
-          this.onUpToDateWithRemoteChange(res.behind > 0);
-        }
-      });
+      return this.git.fetch()
+        .then(() => this.git.status())
+        .then((res) => {
+          if (res) {
+            this.onUnpublishedChangesChange(!res.isClean() || res.ahead > 0);
+            this.onUpToDateWithRemoteChange(res.behind > 0);
+          }
+        });
     };
 
     this.gitUpdateInterval = setInterval(() => {
       updateGitStatus();
     }, 45000);
 
-    visualizePromiseWithLoadingIcon(updateGitStatus(), "cloud-upload", pushButton, pullButton);
+    const promise = updateGitStatus();
+    visualizePromiseWithLoadingIcon(promise, "cloud-upload", pushButton);
+    visualizePromiseWithLoadingIcon(promise, "cloud-download", pullButton);
   }
 
   unload() {
