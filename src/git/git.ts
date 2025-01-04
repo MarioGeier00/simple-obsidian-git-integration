@@ -84,13 +84,7 @@ export class Git {
    */
   addAllAndCommitAndPush(msg: string): Promise<PushResult | null> {
     return this.addAllAndCommit(msg)
-      .then((res: CommitResult) => {
-        if (res.commit) {
-          return this.pull().then(() => this.push());
-        } else {
-          return null;
-        }
-      })
+      .then((res: CommitResult) => this.pull().then(() => this.push()))
       .catch((err: GitResponseError<PushDetail>) => {
         throw new Error(err.message);
       });

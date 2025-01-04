@@ -29,7 +29,7 @@ export default class SimpleGitPlugin extends Plugin {
       const promise = this.git.addAllAndCommitAndPush("changes")
         .then(() => {
           new Notice("Commit and push complete", 3500);
-          this.onUnpublishedChangesChange(false);
+          return updateGitStatus();
         }).catch(() => {
           new Notice("Commit and push failed", 5000);
         });
@@ -60,22 +60,24 @@ export default class SimpleGitPlugin extends Plugin {
     });
 
 
-    const updateGitStatus = () => {
-      return this.git.fetch()
-        .then(() => this.git.status())
+    const fetchAndUpdateGitStatus = () =>
+      this.git.fetch()
+        .then(() => updateGitStatus());
+
+    const updateGitStatus = () =>
+      this.git.status()
         .then((res) => {
           if (res) {
             this.onUnpublishedChangesChange(!res.isClean() || res.ahead > 0);
             this.onUpToDateWithRemoteChange(res.behind > 0);
           }
         });
-    };
 
     this.gitUpdateInterval = setInterval(() => {
-      updateGitStatus();
+      fetchAndUpdateGitStatus();
     }, 45000);
 
-    const promise = updateGitStatus();
+    const promise = fetchAndUpdateGitStatus();
     visualizePromiseWithLoadingIcon(promise, "cloud-upload", pushButton);
     visualizePromiseWithLoadingIcon(promise, "cloud-download", pullButton);
   }
