@@ -1,6 +1,6 @@
 # Simple Obsidian Git Plugin
 
-This is a plugin for [Obsidian](https://obsidian.md) for a seamingless synchronization of the obsidian vault using [Git Version Control](https://git-scm.com/).
+This is a plugin for [Obsidian](https://obsidian.md) for a seamingless synchronization of the obsidian vault using [Git Version Control](https://git-scm.com/). It is based on the work of https://github.com/noradroid/obsidian-git-integration.
 
 It requires Git to be installed in the local system and only works on desktop.
 
