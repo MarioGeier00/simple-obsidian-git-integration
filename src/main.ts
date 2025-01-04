@@ -34,7 +34,7 @@ export default class SimpleGitPlugin extends Plugin {
           new Notice("Commit and push failed", 5000);
         });
 
-      visualizePromiseWithLoadingIcon(pushButton, "cloud-upload", promise);
+      visualizePromiseWithLoadingIcon(promise, "cloud-upload", pushButton);
     });
 
     let defaultButtonBackgroundColor = pushButton.style.backgroundColor;
@@ -52,7 +52,7 @@ export default class SimpleGitPlugin extends Plugin {
           new Notice("Update failed", 5000);
         });
 
-      visualizePromiseWithLoadingIcon(pullButton, "cloud-download", promise);
+      visualizePromiseWithLoadingIcon(promise, "cloud-download", pullButton);
     });
 
     this.onUpToDateWithRemoteChange = ((hasUpdates) => {
@@ -61,7 +61,7 @@ export default class SimpleGitPlugin extends Plugin {
 
 
     const updateGitStatus = () => {
-      this.git.status().then((res) => {
+      return this.git.status().then((res) => {
         if (res) {
           this.onUnpublishedChangesChange(!res.isClean() || res.ahead > 0);
           this.onUpToDateWithRemoteChange(res.behind > 0);
@@ -73,7 +73,7 @@ export default class SimpleGitPlugin extends Plugin {
       updateGitStatus();
     }, 45000);
 
-    updateGitStatus();
+    visualizePromiseWithLoadingIcon(updateGitStatus(), "cloud-upload", pushButton, pullButton);
   }
 
   unload() {
@@ -92,12 +92,17 @@ export default class SimpleGitPlugin extends Plugin {
 
 }
 
-function visualizePromiseWithLoadingIcon<T>(button: HTMLElement, originalIcon: string, action: Promise<T>) {
+function visualizePromiseWithLoadingIcon<T>(action: Promise<T>, originalIcon: string, ...button: HTMLElement[]) {
   const loading = "loader-circle";
-  setIcon(button, loading);
-  button.children[0].classList.add("spin");
+  button.forEach(button => {
+    setIcon(button, loading);
+    button.children[0].classList.add("spin");
+  });
+
   return action.finally(() => {
-    button.children[0].classList.remove("spin");
-    setIcon(button, originalIcon);
+    button.forEach(button => {
+      button.children[0].classList.remove("spin");
+      setIcon(button, originalIcon);
+    });
   });
 }
