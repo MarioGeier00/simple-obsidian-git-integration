@@ -15,6 +15,7 @@ export default class SimpleGitPlugin extends Plugin {
     } catch (err) {
       new Notice(err);
     }
+    super.onload();
   }
 
 
@@ -36,8 +37,10 @@ export default class SimpleGitPlugin extends Plugin {
       visualizePromiseWithLoadingIcon(pushButton, "cloud-upload", promise);
     });
 
+    let defaultButtonBackgroundColor = pushButton.style.backgroundColor;
+
     this.onUnpublishedChangesChange = ((hasUpdates) => {
-      pushButton.style.backgroundColor = hasUpdates ? "rgba(128, 128, 0, 0.6)" : "transparent";
+      pushButton.style.backgroundColor = hasUpdates ? "rgba(128, 128, 0, 0.6)" : defaultButtonBackgroundColor;
     });
 
     const pullButton = this.addRibbonIcon("cloud-download", "Git pull", () => {
@@ -53,7 +56,7 @@ export default class SimpleGitPlugin extends Plugin {
     });
 
     this.onUpToDateWithRemoteChange = ((hasUpdates) => {
-      pullButton.style.backgroundColor = hasUpdates ? "rgba(255, 0, 0, 0.6)" : "transparent";
+      pullButton.style.backgroundColor = hasUpdates ? "rgba(255, 0, 0, 0.6)" : defaultButtonBackgroundColor;
     });
 
 
@@ -77,6 +80,7 @@ export default class SimpleGitPlugin extends Plugin {
     if (this.gitUpdateInterval) {
       clearInterval(this.gitUpdateInterval);
     }
+    super.unload();
   }
 
 

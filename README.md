@@ -6,7 +6,7 @@ It requires Git to be installed in the local system and only works on desktop.
 
 ## Features
 
-- Integrate with Obsidian UI in the top left corner with a download (pull) and upload (push) button.
+- Integrate with Obsidian UI in the left ribbon bar with a download (pull) and upload (push) button.
 - Uses the `git` command line tool to pull and push changes, so no setup is required.
 - Warns when closing obsidian if there are unsynchronised changes.
-- Automatically notify about changes from the remote repository when the vault is opened.
+- Automatically notifies about changes from the remote repository when the vault is opened.
