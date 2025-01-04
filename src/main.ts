@@ -40,7 +40,7 @@ export default class SimpleGitPlugin extends Plugin {
     let defaultButtonBackgroundColor = pushButton.style.backgroundColor;
 
     this.onUnpublishedChangesChange = ((hasUpdates) => {
-      pushButton.style.backgroundColor = hasUpdates ? "rgba(128, 128, 0, 0.6)" : defaultButtonBackgroundColor;
+      pushButton.style.backgroundColor = hasUpdates ? "rgba(196, 0, 0, 0.5)" : defaultButtonBackgroundColor;
     });
 
     const pullButton = this.addRibbonIcon("cloud-download", "Git pull", () => {
@@ -56,7 +56,7 @@ export default class SimpleGitPlugin extends Plugin {
     });
 
     this.onUpToDateWithRemoteChange = ((hasUpdates) => {
-      pullButton.style.backgroundColor = hasUpdates ? "rgba(255, 0, 0, 0.6)" : defaultButtonBackgroundColor;
+      pullButton.style.backgroundColor = hasUpdates ? "rgba(196, 196, 0, 0.5)" : defaultButtonBackgroundColor;
     });
 
 
