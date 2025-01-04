@@ -79,11 +79,14 @@ export class Git {
     return this.instance.add("*").commit(msg);
   }
 
+  /*
+   * Add all changes, commit, pull and finally push
+   */
   addAllAndCommitAndPush(msg: string): Promise<PushResult | null> {
     return this.addAllAndCommit(msg)
       .then((res: CommitResult) => {
         if (res.commit) {
-          return this.push();
+          return this.pull().then(() => this.push());
         } else {
           return null;
         }
